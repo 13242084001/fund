@@ -3,8 +3,8 @@ import sys
 import requests
 from prettytable import PrettyTable
 
-#table = PrettyTable(["名称", "净流入比", "累计涨幅", "流通值(亿)", "总市值(亿)", "市净率", "市盈率", "换手率", "趋势"])
-table = PrettyTable(["名称", "净流入比", "累计涨幅", "流通值(亿)", "总市值(亿)", "市净率", "市盈率", "换手率"])
+table = PrettyTable(["名称", "净流入比", "累计涨幅", "流通值(亿)", "总市值(亿)", "市净率", "市盈率", "换手率", "趋势"])
+#table = PrettyTable(["名称", "净流入比", "累计涨幅", "流通值(亿)", "总市值(亿)", "市净率", "市盈率", "换手率"])
 
 
 def checker(list_):
@@ -34,7 +34,7 @@ def checker(list_):
                 pass
 
 
-    return "up:"+ str(increase) if increase > decrease else "down:"+str(decrease)
+    return "\033[0;31;40m^:{0}\33[0m".format(str(increase)) if increase > decrease else "\033[0;32;40mv:{0}\33[0m".format(str(decrease))
 
 
 with open("./code_core.log", "r", encoding="utf-8") as f:
@@ -84,10 +84,10 @@ for i in tmp_list:
 verbose_dict = {}       
 for k,v in tm_dict.items():
     if int(sys.argv[1]) == v[0]:
-        #trend = checker(v[3])
+        trend = checker(v[3])
         #print(trend)
-        #verbose_dict[k] = str(round(v[1]*100, 2)) + "| " + str(v[2]) + "| " + trend
-        verbose_dict[k] = str(round(v[1]*100, 2)) + "| " + str(v[2])
+        verbose_dict[k] = str(round(v[1]*100, 2)) + "| " + str(v[2]) + "| " + trend
+        #verbose_dict[k] = str(round(v[1]*100, 2)) + "| " + str(v[2])
 
 #print(verbose_dict)
 code_param_list = []
@@ -110,8 +110,8 @@ for code_str in res_list[:-1]:
     #print("#####################")
     tmp_list.append(x_list[44] + "| " + x_list[45] + "| " + x_list[46] + "| " + x_list[39] + "| "  + x_list[38])
 #print(tmp_list)
-#last_list = list(map(lambda x,y: x + "| " + str(round(float(verbose_dict[x].split("| ")[1])/float(y.split("| ")[1])/100000000, 4)) + "%| " + verbose_dict[x].split("| ")[0] + "| " + y + "| " + verbose_dict[x].split("| ")[2], verbose_dict.keys(), tmp_list))
-last_list = list(map(lambda x,y: x + "| " + str(round(float(verbose_dict[x].split("| ")[1])/float(y.split("| ")[1])/100000000, 4)) + "%| " + verbose_dict[x].split("| ")[0] + "| " + y, verbose_dict.keys(), tmp_list))
+last_list = list(map(lambda x,y: x + "| " + str(round(float(verbose_dict[x].split("| ")[1])/(float(y.split("| ")[1])*100000000) * 100, 4)) + "%| " + verbose_dict[x].split("| ")[0] + "| " + y + "| " + verbose_dict[x].split("| ")[2], verbose_dict.keys(), tmp_list))
+#last_list = list(map(lambda x,y: x + "| " + str(round(float(verbose_dict[x].split("| ")[1])/(float(y.split("| ")[1])*100000000) * 100, 4)) + "%| " + verbose_dict[x].split("| ")[0] + "| " + y, verbose_dict.keys(), tmp_list))
 
 for i in last_list:
     table.add_row(i.split("| "))
