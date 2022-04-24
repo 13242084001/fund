@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 table = PrettyTable(["名称", "净流入比", "累计涨幅", "流通值(亿)", "总市值(亿)", "市净率", "市盈率", "换手率", "趋势"])
 #table = PrettyTable(["名称", "净流入比", "累计涨幅", "流通值(亿)", "总市值(亿)", "市净率", "市盈率", "换手率"])
 
-
+#判断连续上涨还是下跌
 def checker(list_):
     temp = []
     flag = 1 if list_[1] > list_[0] else 0
