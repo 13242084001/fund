@@ -57,7 +57,7 @@ for k,v in price_dict.items():
         old_ma10 = reduce(lambda x,y:float(x) + float(y), v[-11:-1])/10
         if old_ma5 < old_ma10 and ma5 > ma10:
             res = checker(v)
-            if res.split(":")[0] == "^" and int(res.split(":")[1]) >= 3:
+            if res.split(":")[0] == "^" and int(res.split(":")[1]) >= 2:
                 print(k)
   
     

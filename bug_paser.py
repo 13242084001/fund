@@ -63,6 +63,7 @@ def anla_chi_cang_html(fund):
     if not res_str:
         return []
     soup = BeautifulSoup(res_str, "html.parser")
+    print(res_str)
     four_chi_cang_10_tr = soup.find_all("tbody")[0].find_all("tr")
     code_list = []
     #print(four_chi_cang_10_tr)
@@ -92,8 +93,8 @@ def find_shares():
     final_dict = sorted(shares_dict.items(), key=lambda x:x[1], reverse=True)
     return final_dict
 
-#shares = find_shares()
-#for share in shares:
-#    print(share)
+shares = find_shares()
+for share in shares:
+    print(share)
 
-comp()
+#comp()

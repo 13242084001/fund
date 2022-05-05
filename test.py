@@ -52,7 +52,7 @@ tm_dict = {}
 for i in tmp_list:
     #print(i)
     x_list = i.split(",")
-    #print(x_list)
+    print(x_list)
     if x_list[1] in date_list:
         if tm_dict.get(x_list[0]):
             tm_dict[x_list[0]][0] += 1
