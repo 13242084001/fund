@@ -41,15 +41,16 @@ with open("code_data.log", "r") as f:
 price_dict = {}
 for row in price_list:
     if row.split(",")[0] not in price_dict:
-        price_dict[row.split(",")[0]] = [row.split(",")[4]]
+        price_dict[row.split(",")[0]] = [float(row.split(",")[4])]
     else:
-        price_dict[row.split(",")[0]].append(row.split(",")[4])
+        price_dict[row.split(",")[0]].append(float(row.split(",")[4]))
 
 #print(price_dict)
 
 code_5_10_dict = {}
 
 for k,v in price_dict.items():
+    #print(len(v))
     if len(v) > 10:
         ma5 = reduce(lambda x,y:float(x) + float(y), v[-5:])/5
         ma10 = reduce(lambda x,y:float(x) + float(y), v[-10:])/10
@@ -57,7 +58,7 @@ for k,v in price_dict.items():
         old_ma10 = reduce(lambda x,y:float(x) + float(y), v[-11:-1])/10
         if old_ma5 < old_ma10 and ma5 > ma10:
             res = checker(v)
-            if res.split(":")[0] == "^" and int(res.split(":")[1]) >= 2:
-                print(k)
+            if res.split(":")[0] == "^" and int(res.split(":")[1]) >= 2 and v[-1] == max(v):
+                print(k, res, v)
   
     

@@ -52,7 +52,7 @@ tm_dict = {}
 for i in tmp_list:
     #print(i)
     x_list = i.split(",")
-    print(x_list)
+    #print(x_list)
     if x_list[1] in date_list:
         if tm_dict.get(x_list[0]):
             tm_dict[x_list[0]][0] += 1
@@ -84,7 +84,11 @@ for i in tmp_list:
 verbose_dict = {}       
 for k,v in tm_dict.items():
     if int(sys.argv[1]) == v[0]:
-        trend = checker(v[3])
+        t_v = []
+        for i in tmp_list:
+            if i.split(",")[1] in date_list and k == i.split(",")[0]:
+                t_v.append(float(i.split(",")[-1]))
+        trend = checker(t_v)
         #print(trend)
         verbose_dict[k] = str(round(v[1]*100, 2)) + "| " + str(v[2]) + "| " + trend
         #verbose_dict[k] = str(round(v[1]*100, 2)) + "| " + str(v[2])
